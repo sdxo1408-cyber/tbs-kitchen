@@ -1,0 +1,187 @@
+/* ── MealCard ─────────────────────────────────────────────── */
+.meal-card {
+  background: var(--cream);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.meal-card:hover {
+  box-shadow: 0 8px 32px rgba(28,28,26,0.08);
+  transform: translateY(-3px);
+}
+
+/* ── Photo ────────────────────────────────────────────────── */
+.meal-card-photo {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+
+.meal-card-photo-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-mid);
+}
+
+/* ── Body ─────────────────────────────────────────────────── */
+.meal-card-body {
+  padding: 1.1rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+/* ── Name ─────────────────────────────────────────────────── */
+.meal-card-name {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* ── Divider ──────────────────────────────────────────────── */
+.meal-card-divider {
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── Macros — single row ──────────────────────────────────── */
+.meal-card-macros {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.macro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+}
+
+.macro-sep {
+  width: 1px;
+  height: 28px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.macro-label {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 0.6rem;
+  letter-spacing: -0.05em;
+  color: var(--ink-mid);
+  text-transform: uppercase;
+}
+
+.macro-value {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  font-size: 0.88rem;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+}
+
+.macro-value span {
+  font-size: 0.65rem;
+  color: var(--ink-mid);
+}
+
+.macro--kcal .macro-value {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+}
+
+/* ── Footer: price + cart ─────────────────────────────────── */
+.meal-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.meal-price {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+/* Add to cart button */
+.btn-add-cart {
+  background: var(--ink);
+  color: var(--cream);
+  border: none;
+  border-radius: 6px;
+  padding: 0.55rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-add-cart:hover {
+  background: var(--accent);
+}
+
+/* Quantity widget */
+.qty-widget {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.qty-btn {
+  background: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  font-size: 1rem;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s;
+}
+.qty-btn:hover {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+.qty-count {
+  min-width: 28px;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  padding: 0 4px;
+  line-height: 32px;
+}

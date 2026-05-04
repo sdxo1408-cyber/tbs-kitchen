@@ -1,0 +1,278 @@
+/* ── Reset & tokens ───────────────────────────────────────── */
+:root {
+  --cream:   #F7F5F0;
+  --ink:     #1C1C1A;
+  --ink-mid: #5A5A56;
+  --border:  #E0DDD6;
+  --accent:  #3B5249;   /* deep sage */
+  --panel-w: 340px;
+}
+
+/* ── NavBar ───────────────────────────────────────────────── */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 64px;
+  background: var(--cream);
+  border-bottom: 1px solid var(--border);
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+}
+
+/* ── Logo ─────────────────────────────────────────────────── */
+.navbar-logo {
+  display: flex;
+  align-items: baseline;
+  gap: 0.18em;
+  cursor: default;
+  user-select: none;
+  line-height: 1;
+}
+
+.logo-tbs {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.logo-kitchen {
+  font-family: 'DM Sans', sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 1.35rem;
+  letter-spacing: -0.05em;
+  color: var(--ink);
+}
+
+/* ── Right actions ────────────────────────────────────────── */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Cart */
+.cart-btn {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+.cart-btn:hover { color: var(--accent); }
+
+.cart-badge {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* Hamburger */
+.hamburger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 32px;
+}
+.hamburger span {
+  display: block;
+  height: 1.5px;
+  background: var(--ink);
+  transition: transform 0.35s cubic-bezier(0.77,0,0.175,1),
+              opacity   0.25s ease,
+              width     0.3s ease;
+  transform-origin: center;
+}
+.hamburger span:nth-child(1) { width: 100%; }
+.hamburger span:nth-child(2) { width: 70%; }
+.hamburger span:nth-child(3) { width: 100%; }
+.hamburger:hover span { background: var(--accent); }
+.hamburger:hover span:nth-child(2) { width: 100%; }
+
+/* ── Overlay ──────────────────────────────────────────────── */
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28,28,26,0);
+  z-index: 200;
+  pointer-events: none;
+  transition: background 0.4s ease;
+}
+.menu-overlay.open {
+  background: rgba(28,28,26,0.35);
+  pointer-events: all;
+}
+
+/* ── Slide panel ──────────────────────────────────────────── */
+.menu-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: var(--panel-w);
+  height: 100dvh;
+  background: var(--cream);
+  border-left: 1px solid var(--border);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  transform: translateX(100%);
+  transition: transform 0.45s cubic-bezier(0.77,0,0.175,1);
+  overflow: hidden;
+}
+.menu-panel.open {
+  transform: translateX(0);
+}
+
+/* close btn */
+.menu-close {
+  align-self: flex-end;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+  margin-bottom: 2.5rem;
+}
+.menu-close:hover {
+  border-color: var(--ink);
+  color: var(--accent);
+}
+
+/* panel logo */
+.panel-logo {
+  display: flex;
+  align-items: baseline;
+  gap: 0.18em;
+  line-height: 1;
+  margin-bottom: 3rem;
+}
+.panel-logo .logo-tbs     { font-size: 1.5rem; }
+.panel-logo .logo-kitchen { font-size: 1.5rem; }
+
+/* nav links */
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  flex: 1;
+}
+.menu-links a {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 2rem;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  line-height: auto;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  display: block;
+}
+.menu-links a:hover {
+  color: var(--accent);
+  border-bottom-color: var(--border);
+}
+
+/* divider */
+.menu-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 2rem 0;
+}
+
+/* auth buttons */
+.menu-auth {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-bottom: 2.5rem;
+}
+.btn-login,
+.btn-signup {
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+.btn-login {
+  background: transparent;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+}
+.btn-login:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn-signup {
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  color: var(--cream);
+}
+.btn-signup:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ── Entry animation for panel links ─────────────────────── */
+.menu-panel.open .menu-links a {
+  animation: slideUp 0.45s cubic-bezier(0.22,1,0.36,1) both;
+}
+.menu-panel.open .menu-links a:nth-child(1) { animation-delay: 0.12s; }
+.menu-panel.open .menu-links a:nth-child(2) { animation-delay: 0.18s; }
+.menu-panel.open .menu-links a:nth-child(3) { animation-delay: 0.24s; }
+.menu-panel.open .menu-links a:nth-child(4) { animation-delay: 0.30s; }
+
+.menu-panel.open .menu-auth {
+  animation: slideUp 0.45s 0.36s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
