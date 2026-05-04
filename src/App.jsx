@@ -1,6 +1,9 @@
+import { Routes, Route } from 'react-router-dom'
 import NavBar from './components/NavBar'
 import HeroSection from './components/HeroSection'
 import MealCard from './components/MealCard'
+import LoginPage from './components/LoginPage'
+import SignupPage from './components/SignupPage'
 
 const meals = [
   {
@@ -35,21 +38,26 @@ const meals = [
   },
 ]
 
-export default function App() {
+function HomePage() {
   return (
     <div style={{ background: '#F7F5F0', minHeight: '100vh' }}>
       <NavBar cartCount={2} />
       <HeroSection />
-      <main style={{
-        padding: '3rem 2rem',
-        display: 'flex',
-        flexWrap: 'wrap',
-        gap: '1.5rem',
-      }}>
+      <main style={{ padding: '3rem 2rem', display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}>
         {meals.map(meal => (
           <MealCard key={meal.id} {...meal} />
         ))}
       </main>
     </div>
+  )
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
+    </Routes>
   )
 }

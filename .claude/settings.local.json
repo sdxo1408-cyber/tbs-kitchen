@@ -9,7 +9,16 @@
       "Bash(gh auth *)",
       "Bash(git init *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(gh repo *)",
+      "Bash(amplify --version)",
+      "Bash(amplify add *)",
+      "Bash(amplify init *)",
+      "Read(//Users/sd.xo/.aws/**)",
+      "Bash(aws iam attach-user-policy *)",
+      "Bash(brew install *)",
+      "Bash(git push *)",
+      "WebFetch(domain:main.d3ragtkfsalf8g.amplifyapp.com)"
     ]
   }
 }

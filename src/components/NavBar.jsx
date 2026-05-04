@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import './NavBar.css'
 
 function CartIcon() {
@@ -14,6 +15,7 @@ function CartIcon() {
 
 export default function NavBar({ cartCount = 0 }) {
   const [open, setOpen] = useState(false)
+  const navigate = useNavigate()
 
   return (
     <>
@@ -78,8 +80,8 @@ export default function NavBar({ cartCount = 0 }) {
         <div className="menu-divider" />
 
         <div className="menu-auth">
-          <button className="btn-login">Log in</button>
-          <button className="btn-signup">Sign up</button>
+          <button className="btn-login" onClick={() => { setOpen(false); navigate('/login') }}>Log in</button>
+          <button className="btn-signup" onClick={() => { setOpen(false); navigate('/signup') }}>Sign up</button>
         </div>
       </aside>
     </>
