@@ -4,7 +4,6 @@ import { Icon } from './Icons';
 const NAV_ITEMS = [
   { id: 'home', label: 'Home', icon: (c) => Icon.home(20, c) },
   { id: 'menu', label: 'Menu', icon: (c) => Icon.menuNav(20, c) },
-  { id: 'track', label: 'Track', icon: (c) => Icon.track(20, c) },
   { id: 'bag', label: 'Bag', icon: (c) => Icon.bag(20, c) },
 ];
 
