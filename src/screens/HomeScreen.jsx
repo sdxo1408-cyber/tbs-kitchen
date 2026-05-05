@@ -47,7 +47,7 @@ function ImageSwap({ a, b }) {
   );
 }
 
-function HeroSection({ goto }) {
+function HeroSection({ goto, onGetStarted }) {
   return (
     <section style={{ padding: '24px 28px 40px', textAlign: 'center' }}>
       <Reveal>
@@ -76,7 +76,7 @@ function HeroSection({ goto }) {
           margin: '22px 0 28px', fontSize: 14.5,
           color: BRAND.inkSoft, letterSpacing: '-0.03em',
         }}>One meal at a time.</p>
-        <PillButton variant="forest" size="lg" onClick={() => goto('menu')}>
+        <PillButton variant="forest" size="lg" onClick={onGetStarted || (() => goto('menu'))}>
           <span style={{ fontFamily: 'Instrument Serif, serif', fontStyle: 'italic', fontSize: 18 }}>
             Get Started
           </span>
@@ -388,7 +388,7 @@ function FooterSection() {
   );
 }
 
-export default function HomeScreen({ goto, addToCart, onScroll }) {
+export default function HomeScreen({ goto, addToCart, onScroll, onGetStarted }) {
   return (
     <div onScroll={onScroll} data-scroll-root style={{
       height: '100%', overflowY: 'auto', overflowX: 'hidden',
@@ -397,7 +397,7 @@ export default function HomeScreen({ goto, addToCart, onScroll }) {
       letterSpacing: '-0.02em',
     }}>
       <div style={{ height: 80 }} />
-      <HeroSection goto={goto} />
+      <HeroSection goto={goto} onGetStarted={onGetStarted} />
       <AboutSection />
       <BuiltForPeople />
       <FeaturedMeals goto={goto} addToCart={addToCart} />

@@ -10,7 +10,6 @@ import SideDrawer from './components/SideDrawer';
 import SplashScreen from './screens/SplashScreen';
 import OnboardingScreen from './screens/OnboardingScreen';
 import AICoachScreen from './screens/AICoachScreen';
-import PermissionsScreen from './screens/PermissionsScreen';
 import DashboardScreen from './screens/DashboardScreen';
 import HomeScreen from './screens/HomeScreen';
 import MenuScreen from './screens/MenuScreen';
@@ -22,12 +21,12 @@ import OrdersScreen from './screens/OrdersScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import RepeatOrdersScreen from './screens/RepeatOrdersScreen';
 
-const FLOW_SCREENS = new Set(['splash', 'onboarding', 'ai-coach', 'permissions']);
+const FLOW_SCREENS = new Set(['splash', 'onboarding', 'ai-coach']);
 const APP_NAV_SCREENS = new Set(['home', 'menu']);
-const SOLID_HEADER_SCREENS = new Set(['home', 'profile', 'orders', 'settings', 'repeat']);
+const SOLID_HEADER_SCREENS = new Set(['profile', 'orders', 'settings', 'repeat']);
 
 export default function App() {
-  const [screen, setScreen] = useState('splash');
+  const [screen, setScreen] = useState('home');
   const [userProfile, setUserProfile] = useState(null);
   const [activeItemId, setActiveItemId] = useState(null);
   const [authMode, setAuthMode] = useState('login');
@@ -97,8 +96,7 @@ export default function App() {
     setScreen('ai-coach');
   }, []);
 
-  const handleCoachComplete = useCallback(() => setScreen('permissions'), []);
-  const handlePermissionsComplete = useCallback(() => setScreen('home'), []);
+  const handleCoachComplete = useCallback(() => setScreen('home'), []);
 
   const handleAuth = useCallback((data) => {
     setUserProfile(prev => ({ ...(prev || {}), ...data }));
@@ -153,13 +151,12 @@ export default function App() {
           onComplete={handleCoachComplete} />
       );
       break;
-    case 'permissions':
-      content = <PermissionsScreen onComplete={handlePermissionsComplete} />;
-      break;
     case 'home':
       content = isAuthed
         ? <DashboardScreen userProfile={userProfile} goto={goto} addToCart={addToCart} />
-        : <HomeScreen goto={goto} addToCart={addToCart} onScroll={handleScroll} />;
+        : <HomeScreen
+            goto={goto} addToCart={addToCart} onScroll={handleScroll}
+            onGetStarted={() => setScreen('splash')} />;
       break;
     case 'menu':
       content = (
@@ -206,7 +203,11 @@ export default function App() {
       content = <RepeatOrdersScreen goto={goto} addToCart={addToCart} />;
       break;
     default:
-      content = <HomeScreen goto={goto} addToCart={addToCart} onScroll={handleScroll} />;
+      content = (
+        <HomeScreen
+          goto={goto} addToCart={addToCart} onScroll={handleScroll}
+          onGetStarted={() => setScreen('splash')} />
+      );
   }
 
   return (
