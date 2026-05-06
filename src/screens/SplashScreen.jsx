@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { BRAND } from '../brand';
 import { Icon } from '../components/Icons';
 import PillButton from '../components/PillButton';
+import API_BASE from '../config';
 
 export default function SplashScreen({ onPhoneSubmit }) {
   const [phase, setPhase] = useState('intro'); // intro → phone → otp
@@ -15,17 +16,39 @@ export default function SplashScreen({ onPhoneSubmit }) {
     return () => clearTimeout(t);
   }, [phase]);
 
-  const sendOtp = () => {
+  const sendOtp = async () => {
     const digits = phone.replace(/\D/g, '');
     if (digits.length < 10) { setError('Enter a 10-digit phone'); return; }
     setError('');
-    setPhase('otp');
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/send-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: digits }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setError(data.error || 'Failed to send OTP'); return; }
+      setPhase('otp');
+    } catch (err) {
+      setError('Could not reach server. Try again.');
+    }
   };
 
-  const verifyOtp = () => {
+  const verifyOtp = async () => {
     if (otp.length !== 6) { setError('OTP is 6 digits'); return; }
     setError('');
-    onPhoneSubmit(phone);
+    try {
+      const res = await fetch(`${API_BASE}/api/auth/verify-otp`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: phone.replace(/\D/g, ''), code: otp }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setError(data.error || 'Invalid OTP'); return; }
+      onPhoneSubmit(phone.replace(/\D/g, ''), data.isNewUser, data.user);
+    } catch (err) {
+      setError('Could not reach server. Try again.');
+    }
   };
 
   return (
@@ -166,10 +189,6 @@ export default function SplashScreen({ onPhoneSubmit }) {
                 fontFamily: 'DM Sans, sans-serif', fontSize: 28,
                 letterSpacing: '0.6em', textAlign: 'center', color: BRAND.ink,
               }} />
-          </div>
-
-          <div style={{ marginTop: 10, textAlign: 'center', fontSize: 12, color: BRAND.muted }}>
-            Hint: any 6 digits work in this demo.
           </div>
 
           {error && (

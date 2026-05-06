@@ -20,6 +20,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import OrdersScreen from './screens/OrdersScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import RepeatOrdersScreen from './screens/RepeatOrdersScreen';
+import API_BASE from './config';
 
 const FLOW_SCREENS = new Set(['splash', 'onboarding', 'ai-coach']);
 const APP_NAV_SCREENS = new Set(['home', 'menu']);
@@ -81,18 +82,30 @@ export default function App() {
 
   const resetCart = useCallback(() => setCart([]), []);
 
-  const handlePhoneSubmit = useCallback((phone) => {
-    setUserProfile({ phone });
-    setScreen('onboarding');
+  const handlePhoneSubmit = useCallback((phone, isNewUser, user) => {
+    if (isNewUser) {
+      setUserProfile({ phone });
+      setScreen('onboarding');
+    } else {
+      setUserProfile({ phone, ...user });
+      setScreen('home');
+    }
   }, []);
 
-  const handleOnboardingComplete = useCallback((answers) => {
+  const handleOnboardingComplete = useCallback(async (answers) => {
     const cleanName = typeof answers.name === 'string' ? answers.name.trim() : '';
-    setUserProfile(prev => ({
-      ...prev,
+    const profile = {
       ...answers,
-      name: cleanName || prev?.name || 'You',
-    }));
+      name: cleanName || 'You',
+    };
+    setUserProfile(prev => ({ ...prev, ...profile }));
+
+    await fetch('${API_BASE}/api/auth/user', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone: profile.phone, ...profile }),
+    });
+
     setScreen('ai-coach');
   }, []);
 

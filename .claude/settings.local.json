@@ -18,7 +18,15 @@
       "Bash(aws iam attach-user-policy *)",
       "Bash(brew install *)",
       "Bash(git push *)",
-      "WebFetch(domain:main.d3ragtkfsalf8g.amplifyapp.com)"
+      "WebFetch(domain:main.d3ragtkfsalf8g.amplifyapp.com)",
+      "Bash(xargs ls *)",
+      "Bash(node --input-type=module --eval ' *)",
+      "WebFetch(domain:api.anthropic.com)",
+      "mcp__claude_ai_Tavily__tavily_extract",
+      "Bash(mkdir -p \"/Users/sd.xo/Desktop/React Project/public\")",
+      "Bash(cp \"/Users/sd.xo/Desktop/React Project/webdesign/assets/photo-bowl.png\" \"/Users/sd.xo/Desktop/React Project/public/photo-bowl.png\")",
+      "Bash(cp \"/Users/sd.xo/Desktop/React Project/webdesign/assets/photo-waffle.png\" \"/Users/sd.xo/Desktop/React Project/public/photo-waffle.png\")",
+      "Bash(curl -s http://localhost:5173)"
     ]
   }
 }
